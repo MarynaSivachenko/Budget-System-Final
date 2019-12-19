@@ -1,0 +1,128 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+
+</h:head>
+
+<h:body styleClass="bg-secondary">
+
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.xhtml">PB Systems V7</a>
+
+        <div class="container d-flex justify-content-end p-2">
+            <a type="button" class="btn btn-primary mx-2" href="signup.xhtml">
+                Sign Up
+            </a>
+
+            <a type="button" class="btn btn-primary mx-2" href="signin.xhtml">
+                Sign IN
+            </a>
+        </div>
+    </nav>
+
+
+    <div class="card text-center container w-50 mt-5">
+        <div class="card-header display-4">
+            REGISTRATION
+        </div>
+        <div class="card-body">
+            <h:form styleClass="container w-100 mt-5 bg-light">
+
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                <p:wizard flowListener="#{userRegistration.onFlowProcess}">
+                    <p:tab id="userInfo" title="User Information">
+                        <p:panel>
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Login: *"/>
+                                <p:inputText value="#{userRegistration.user.login}" required="true" label="Login" styleClass="mb-3"/>
+
+                                <h:outputText value="Password: *"/>
+                                <p:password value="#{userRegistration.user.password}"  required="true" label="Password" styleClass="mb-3">
+                                    <f:validateLength minimum="5" maximum="8"/>
+                                    <!--                            <f:validateRegex pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^+=])$"/>-->
+                                </p:password>
+
+                                <h:outputText value="Email: "/>
+                                <p:inputText value="#{userRegistration.user.email}" required="true" label="Email" styleClass="mb-3">
+                                    <f:validateRegex
+                                            pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"/>
+                                </p:inputText>
+
+                                <h:outputText value="Skip to last: "/>
+                                <h:selectBooleanCheckbox value="#{userRegistration.skip}"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+
+                    <p:tab id="PersonalInfo" title="PersonalInfo">
+                        <p:panel>
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="First Name: *"/>
+                                <p:inputText value="#{userRegistration.customer.firstName}" required="true"
+                                             label="First Name"/>
+
+                                <h:outputText value="Last Name: "/>
+                                <p:inputText value="#{userRegistration.customer.lastName}" required="true"
+                                             label="Last Name"/>
+
+                                <h:outputText value="Phone: "/>
+                                <p:inputText value="#{userRegistration.customer.phone}" required="true" label="Phone"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="confirm" title="Confirmation">
+                        <p:panel>
+                            <h:panelGrid id="confirmation" columns="1" columnClasses="grid,grid,grid">
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Login: "/>
+                                    <h:outputText value="#{userRegistration.user.login}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Password: "/>
+                                    <h:outputText value="#{userRegistration.user.password}" styleClass="outputLabel"/>
+
+
+                                    <h:outputText value="Email: "/>
+                                    <h:outputText value="#{userRegistration.user.email}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="First Name: "/>
+                                    <h:outputText value="#{userRegistration.customer.firstName}"
+                                                  styleClass="outputLabel"/>
+
+                                    <h:outputText value="Last Name: "/>
+                                    <h:outputText value="#{userRegistration.customer.lastName}"
+                                                  styleClass="outputLabel"/>
+
+                                    <h:outputText value="Phone: "/>
+                                    <h:outputText value="#{userRegistration.customer.phone}" styleClass="outputLabel"/>
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+
+                            <p:commandButton value="Submit" action="#{userRegistration.save}" update="growl"
+                                             process="@this"/>
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
+
+            </h:form>
+        </div>
+        <div class="card-footer text-muted">
+            <a type="button" class="btn btn-danger" href="index.xhtml">Back</a>
+        </div>
+    </div>
+
+
+</h:body>
+</html>

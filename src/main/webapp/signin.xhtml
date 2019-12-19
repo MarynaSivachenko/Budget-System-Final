@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+
+</h:head>
+
+<h:body styleClass="bg-secondary">
+
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.xhtml">PB Systems V7</a>
+
+        <div class="container d-flex justify-content-end p-2">
+            <a type="button" class="btn btn-primary mx-2" href="signup.xhtml">
+                Sign Up
+            </a>
+
+            <a type="button" class="btn btn-primary mx-2" href="signin.xhtml">
+                Sign IN
+            </a>
+        </div>
+    </nav>
+
+    <h:form>
+        <div class="card text-center container w-50 mt-5">
+            <div class="card-header display-4">
+                SIGN IN
+            </div>
+            <div class="card-body d-flex justify-content-center">
+
+                <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
+
+
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Username:"/>
+                    <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username"/>
+
+                    <h:outputLabel for="password" value="Password:"/>
+                    <p:password id="password" value="#{userLoginView.password}" required="true" label="password"/>
+
+
+                </h:panelGrid>
+
+
+            </div>
+            <div class="card-footer text-muted">
+
+                <p:commandButton styleClass="btn btn-primary" value="Login" update="growl"
+                                 action="#{userLoginView.login}"/>
+
+            </div>
+        </div>
+    </h:form>
+
+
+</h:body>
+
+
+</html>

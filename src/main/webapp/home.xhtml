@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputScript library="js" name="bootstrap.js"/>
+
+</h:head>
+
+<h:body styleClass="bg-secondary">
+
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 mb-5">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.xhtml">PB Systems V7</a>
+
+        <div class="container d-flex justify-content-end p-2">
+
+        </div>
+    </nav>
+
+
+    <div class="container w-75">
+        <div class="card text-center">
+            <div class="card-header">
+                <h1>Welcome <p:outputLabel value="#{userLoginView.currentUser.login}"/></h1>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="accounts-list.xhtml" class="list-group-item list-group-item-action">
+                        Accounts
+                    </a>
+                    <a href="categories-list.xhtml" class="list-group-item list-group-item-action">Categories</a>
+                    <a href="transactions.xhtml" class="list-group-item list-group-item-action">Transactions</a>
+                </div>
+
+            </div>
+            <div class="card-footer text-muted">
+
+            </div>
+        </div>
+    </div>
+
+
+</h:body>
+
+
+</html>

@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputScript library="js" name="bootstrap.js"/>
+
+</h:head>
+
+<h:body styleClass="bg-secondary">
+
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 mb-5">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.xhtml">PB Systems</a>
+
+        <div class="container d-flex justify-content-end p-2">
+
+        </div>
+    </nav>
+
+
+    <div class="container w-75">
+        <div class="card text-center">
+
+            <div class="card-header  d-flex justify-content-start">
+                <a href="home.xhtml" class="btn btn-danger mr-2">Back</a>
+
+
+
+
+            </div>
+            <h:outputLabel name="init" value="#{accView.init(userLoginView.currentUser.id)}">
+            </h:outputLabel>
+
+            <div class="card-body">
+                <h:form>
+                    <p:carousel value="#{accView.accounts}" headerText="Accounts" var="acc"
+                                itemStyle="text-align:center" responsive="true">
+                        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value"
+                                     layout="grid" styleClass="ui-panelgrid-blank">
+
+                            <h:outputText value="Number:"/>
+                            <h:outputText value="#{acc.number}"/>
+
+                            <h:outputText value="Balance"/>
+                            <h:outputText value="#{acc.balance}"/>
+
+                            <h:outputText value="Opened"/>
+                            <h:outputText value="$#{acc.created}"/>
+                        </p:panelGrid>
+
+                        <f:facet name="footer">
+                            In total there are <h:outputText value=" #{accView.accounts.size()}"/> accounts.
+                        </f:facet>
+                    </p:carousel>
+                </h:form>
+
+
+            </div>
+            <div class="card-footer text-muted">
+                <h:form>
+                    <p:growl id="growl" life="2000"/>
+
+                    <p:commandButton value="Open Account" id="nonAjax"
+                                     action="#{accView.openAccount(userLoginView.currentUser.id)}"
+                                     style="margin-right:20px;" ajax="false"  styleClass="btn btn-lg btn-block btn-primary"/>
+                </h:form>
+            </div>
+
+        </div>
+    </div>
+
+
+</h:body>
+
+
+</html>

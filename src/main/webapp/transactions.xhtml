@@ -1,0 +1,153 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputScript library="js" name="bootstrap.js"/>
+
+</h:head>
+
+<h:body styleClass="bg-secondary">
+
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 mb-5">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.xhtml">PB Systems</a>
+
+        <div class="container d-flex justify-content-end p-2">
+
+        </div>
+    </nav>
+
+
+    <div class="container w-75">
+        <div class="card text-center">
+
+            <div class="card-header  d-flex justify-content-start">
+                <a href="home.xhtml" class="btn btn-danger mr-2">Back</a>
+            </div>
+
+
+            <div class="card-body">
+
+                <h:outputLabel name="init" value="#{tView.init(userLoginView.currentUser.id)}">
+                </h:outputLabel>
+                <h:form id="form">
+
+                    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+                    <p:tabView>
+                        <p:tab title="Trasactions List">
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <p:dataTable var="trn" value="#{tView.trnAll}" widgetVar="transall"
+                                             emptyMessage="No transaction found with given criteria"
+                                             filteredValue="#{tView.trnAllFiltered}">
+
+                                    <p:column filterBy="#{trn.accId}" headerText="ACCOUNT ID" footerText="contains"
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{accountService.getById(trn.accId).number}"/>
+                                    </p:column>
+
+                                    <p:column filterBy="#{trn.amount}" headerText="AMOUNT" footerText="custom(min)"
+                                              filterFunction="#{tView.filterByAmount}">
+                                        <h:outputText value="#{trn.amount}">
+                                            <f:convertNumber currencySymbol="$" type="currency"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <!--                                    <p:column filterBy="#{trn.type}" headerText="TYPE" footerText="equals"-->
+                                    <!--                                              filterMatchMode="equals">-->
+                                    <!--                                        <f:facet name="filter">-->
+                                    <!--                                            <p:selectOneButton onchange="PF('transall').filter()"-->
+                                    <!--                                                               styleClass="custom-filter">-->
+                                    <!--                                                <f:selectItem itemLabel="All" itemValue=""/>-->
+                                    <!--                                                <f:selectItem itemLabel="Income" itemValue="0"/>-->
+                                    <!--                                                <f:selectItem itemLabel="Expense" itemValue="1"/>-->
+                                    <!--                                            </p:selectOneButton>-->
+                                    <!--                                        </f:facet>-->
+                                    <!--                                        <h:outputText value="#{trn.type ? 'Income': 'Expense'}"/>-->
+                                    <!--                                    </p:column>-->
+
+
+                                </p:dataTable>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Income">
+                            <h:form>
+                                <p:panelGrid>
+
+                                    <f:facet name="header">
+                                        <p:row>
+                                            <p:column style="font-weight: bold;">Account To</p:column>
+                                            <p:column style="font-weight: bold;">Category</p:column>
+                                            <p:column style="font-weight: bold;">Amount</p:column>
+                                        </p:row>
+                                    </f:facet>
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:selectOneMenu id="accid" value="#{tView.currentAcc.accId}"
+                                                             style="width:250px">
+                                                <f:selectItems
+                                                        value="#{accountService.getAllMapByUId(userLoginView.currentUser.id).entrySet()}"
+                                                        var="ca"
+                                                        itemLabel="#{ca.key}"
+                                                        itemValue="#{ca.value}"/>
+
+                                                <f:facet name="footer">
+                                                    <p:separator/>
+                                                    <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                                                </f:facet>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="catid" value="#{tView.currentAcc.categoryId}"
+                                                             style="width:250px">
+                                                <f:selectItems
+                                                        value="#{categoryServices.getAllMapByUId(userLoginView.currentUser.id).entrySet()}"
+                                                        var="ca"
+                                                        itemLabel="#{ca.key}"
+                                                        itemValue="#{ca.value}"/>
+
+                                                <f:facet name="footer">
+                                                    <p:separator/>
+                                                    <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                                                </f:facet>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputNumber id="amount" value="#{tView.currentAcc.amount}"/>
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                                <p:commandButton value="Save" action="#{tView.makeIncome(userLoginView.currentUser.id)}"
+                                                 style="margin-right:20px;" ajax="false"/>
+                            </h:form>
+                        </p:tab>
+                        <p:tab title="Expense">
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <p:graphicImage name="demo/images/godfather/godfather3.jpg"/>
+                                <h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family.
+                    Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate."/>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                </h:form>
+
+
+            </div>
+            <div class="card-footer text-muted">
+
+            </div>
+
+        </div>
+    </div>
+
+
+</h:body>
+
+
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+
+        version="2.2">
+
+    <navigation-rule>
+        <from-view-id>signin.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-action>#{userLoginView.login}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>home.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-action>#{userLoginView.login}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>signin.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>create-category.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-action>#{categoryRegistration.save(userLoginView.currentUser.id)}</from-action>
+            <from-outcome>done</from-outcome>
+            <to-view-id>categories-list.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>accounts-list.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-action>#{accView.openAccount(userLoginView.currentUser.id)}</from-action>
+            <from-outcome>done</from-outcome>
+            <to-view-id>accounts-list.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>transactions.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-action>#{tView.makeIncome(userLoginView.currentUser.id)}</from-action>
+            <from-outcome>done</from-outcome>
+            <to-view-id>transactions.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>
